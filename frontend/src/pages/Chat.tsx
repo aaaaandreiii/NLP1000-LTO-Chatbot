@@ -33,21 +33,38 @@ const Chat: React.FC = () => {
     setInput("");
     setLoading(true);
 
+    const apiUrl = `${import.meta.env.VITE_API_URL}/chat`;
+    console.log(`[DEBUG] Calling API: ${apiUrl}`);
+
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/chat`, { query: input });
+      const response = await axios.post(apiUrl, { query: input });
       const data = response.data;
 
       const assistantMsg: Message = {
         role: "assistant",
-        content: data.answer,
+        content: data.answer || "No response content.",
         sources: data.sources,
         status: data.status,
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
-    } catch (error) {
-      console.error("Chat Error:", error);
-      setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, something went wrong. Please try again later." }]);
+    } catch (error: any) {
+      console.error("Chat Error Details:", error);
+      
+      let errorMessage = "Sorry, something went wrong. Please try again later.";
+      
+      if (error.response) {
+        // Backend returned a non-2xx response
+        const backendError = error.response.data;
+        errorMessage = `Backend Error (${error.response.status}): ${backendError.message || backendError.error || JSON.stringify(backendError)}`;
+      } else if (error.request) {
+        // Request was made but no response was received (likely CORS or network)
+        errorMessage = `Network Error: No response from ${apiUrl}. This could be a CORS issue or the backend is offline.`;
+      } else {
+        errorMessage = `Request Error: ${error.message}`;
+      }
+
+      setMessages((prev) => [...prev, { role: "assistant", content: errorMessage }]);
     } finally {
       setLoading(false);
     }

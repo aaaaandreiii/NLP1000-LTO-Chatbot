@@ -27,6 +27,12 @@ app.use(cors({
 
 app.use(express.json());
 
+// Log every request path
+app.use((req, res, next) => {
+  console.log(`[DEBUG] Request: ${req.method} ${req.path}`);
+  next();
+});
+
 // Vercel serverless functions have a read-only filesystem, except for /tmp
 const upload = multer({ dest: "/tmp" });
 
@@ -39,6 +45,11 @@ const adminAuth = (req: Request, res: Response, next: NextFunction) => {
     res.status(401).json({ error: "Unauthorized: Invalid admin password" });
   }
 };
+
+// Root route
+app.get("/", (req, res) => {
+  res.json({ message: "LTO Chatbot API is online. Use /api/health to check status." });
+});
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {

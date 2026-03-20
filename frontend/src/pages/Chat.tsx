@@ -33,7 +33,11 @@ const Chat: React.FC = () => {
     setInput("");
     setLoading(true);
 
-    const apiUrl = `${import.meta.env.VITE_API_URL}/chat`;
+    const baseUrl = import.meta.env.VITE_API_URL ? 
+      (import.meta.env.VITE_API_URL.endsWith('/') ? import.meta.env.VITE_API_URL.slice(0, -1) : import.meta.env.VITE_API_URL) 
+      : "";
+    const apiUrl = `${baseUrl}/chat`;
+    
     console.log(`[DEBUG] Calling API: ${apiUrl}`);
 
     try {
@@ -56,10 +60,11 @@ const Chat: React.FC = () => {
       if (error.response) {
         // Backend returned a non-2xx response
         const backendError = error.response.data;
-        errorMessage = `Backend Error (${error.response.status}): ${backendError.message || backendError.error || JSON.stringify(backendError)}`;
+        const errorDetail = typeof backendError === 'string' ? backendError : JSON.stringify(backendError);
+        errorMessage = `Backend Error (${error.response.status}) at ${apiUrl}: ${errorDetail}`;
       } else if (error.request) {
         // Request was made but no response was received (likely CORS or network)
-        errorMessage = `Network Error: No response from ${apiUrl}. This could be a CORS issue or the backend is offline.`;
+        errorMessage = `Network Error: No response from ${apiUrl}. Check CORS or if backend is online.`;
       } else {
         errorMessage = `Request Error: ${error.message}`;
       }

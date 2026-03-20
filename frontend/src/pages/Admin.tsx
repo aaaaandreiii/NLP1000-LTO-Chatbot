@@ -151,7 +151,7 @@ const Admin: React.FC = () => {
           <Box sx={{ mb: 3 }}>
             <Typography variant="subtitle2" gutterBottom>Upload Queue:</Typography>
             <Paper variant="outlined">
-              <List size="small">
+              <List>
                 {processingStatus.map((item, index) => (
                   <React.Fragment key={index}>
                     <ListItem>

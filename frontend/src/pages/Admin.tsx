@@ -122,14 +122,16 @@ const Admin: React.FC = () => {
 
         <Box 
           sx={{ 
-            border: "2px dashed #ccc", 
+            border: "2px dashed", 
+            borderColor: "divider",
             p: 4, 
             textAlign: "center", 
             borderRadius: 2, 
             mb: 3,
-            bgcolor: "#fafafa",
+            bgcolor: "background.default",
             cursor: "pointer",
-            "&:hover": { bgcolor: "#f0f0f0" }
+            "&:hover": { bgcolor: "action.hover", borderColor: "primary.main" },
+            transition: 'all 0.2s ease-in-out'
           }}
           onClick={() => document.getElementById("file-input")?.click()}
         >

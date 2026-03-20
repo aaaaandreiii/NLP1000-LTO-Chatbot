@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box } from "@mui/material";
+import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import Chat from "./pages/Chat";
 import Admin from "./pages/Admin";
 

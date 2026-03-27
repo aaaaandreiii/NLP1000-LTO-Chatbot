@@ -33,7 +33,7 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hello! I am your LTO Assistant. How can I help you today regarding driver's licenses and related services?"
+      content: "Hello! I am your LTO Assistant. How can I help you today regarding driver's licenses and related services? \n_This chatbot was created by Andrei Balingit and Ethan Burayag._"
     }
   ]);
   const [loading, setLoading] = useState(false);
@@ -82,9 +82,9 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", bgcolor: "background.default", position: "relative" }}>
+    <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", bgcolor: "background.default", position: "relative", minHeight: 0, height: "100%" }}>
       {/* Messages Area */}
-      <Box sx={{ flexGrow: 1, overflowY: "auto", py: 4, px: { xs: 2, md: 4 } }}>
+      <Box sx={{ flexGrow: 1, overflowY: "auto", py: 4, px: { xs: 2, md: 4 }, WebkitOverflowScrolling: "touch" }}>
         <Container maxWidth="md">
           <List sx={{ p: 0 }}>
             {messages.map((msg, index) => (

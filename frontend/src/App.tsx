@@ -45,7 +45,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: 'background.default' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', height: '100dvh', bgcolor: 'background.default' }}>
           <AppBar position="static" elevation={0} sx={{ borderBottom: '1px solid', borderColor: 'divider', bgcolor: 'background.paper' }}>
             <Toolbar variant="dense">
               <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 700, letterSpacing: -0.5 }}>
@@ -59,7 +59,7 @@ const App: React.FC = () => {
               </Button>
             </Toolbar>
           </AppBar>
-          <Box component="main" sx={{ flexGrow: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+          <Box component="main" sx={{ flexGrow: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
             <Routes>
               <Route path="/" element={<Chat />} />
               <Route path="/admin" element={<Box sx={{ p: 4, overflowY: 'auto' }}><Admin /></Box>} />
